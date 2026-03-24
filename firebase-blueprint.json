@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user information and roles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "candidate", "client"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "JobListing": {
+      "title": "Job Listing",
+      "description": "Available job opportunities",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string", "enum": ["Full-time", "Part-time", "Contract", "Remote"] },
+        "description": { "type": "string" },
+        "requirements": { "type": "array", "items": { "type": "string" } },
+        "salary": { "type": "string" },
+        "postedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["open", "closed"] },
+        "authorId": { "type": "string" }
+      },
+      "required": ["title", "company", "type", "description", "status"]
+    },
+    "Application": {
+      "title": "Job Application",
+      "description": "Applications submitted by candidates",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string" },
+        "candidateId": { "type": "string" },
+        "candidateName": { "type": "string" },
+        "candidateEmail": { "type": "string" },
+        "resumeUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "shortlisted", "rejected"] },
+        "appliedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["jobId", "candidateId", "status", "appliedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "User profile documents"
+    },
+    "/jobs/{jobId}": {
+      "schema": "JobListing",
+      "description": "Job listings"
+    },
+    "/applications/{appId}": {
+      "schema": "Application",
+      "description": "Job applications"
+    }
+  }
+}

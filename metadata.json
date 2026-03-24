@@ -1,0 +1,7 @@
+{
+  "name": "IMPOSE HR SOLUTIONS",
+  "description": "A comprehensive HR consultancy and recruitment platform providing payroll, compliance, and talent acquisition services.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
